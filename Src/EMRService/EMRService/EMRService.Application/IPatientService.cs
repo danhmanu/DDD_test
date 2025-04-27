@@ -1,4 +1,6 @@
-﻿namespace EMRService.EMRService.Application
+﻿using EMRService.EMRService.Contracts;
+
+namespace EMRService.EMRService.Application
 {
     public interface IPatientService
     {

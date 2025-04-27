@@ -1,4 +1,5 @@
-﻿using EMRService.EMRService.Domain;
+﻿using EMRService.EMRService.Contracts;
+using EMRService.EMRService.Domain;
 using EMRService.EMRService.Infrastructure;
 
 namespace EMRService.EMRService.Application

@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: yourStrongPassword
+      POSTGRES_PASSWORD: Danh@123
       POSTGRES_DB: emrdb
     ports:
       - "5432:5432"

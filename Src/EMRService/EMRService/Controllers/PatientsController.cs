@@ -1,4 +1,5 @@
 ﻿using EMRService.EMRService.Application;
+using EMRService.EMRService.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

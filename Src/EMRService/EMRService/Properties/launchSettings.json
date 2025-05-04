@@ -36,9 +36,6 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
-    "ConnectionStrings": {
-      "EMRDatabase": "Host=localhost;Port=5432;Database=emrdb;Username=postgres;Password=Danh@123"
     }
   }
 }

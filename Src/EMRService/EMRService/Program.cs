@@ -5,8 +5,9 @@ using Microsoft.EntityFrameworkCore; // Add this using directive for 'UseNpgsql'
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
+string url = builder.Configuration.GetConnectionString("EMRDatabase");
 builder.Services.AddDbContext<EMRDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("EMRDatabase"))); // Ensure 'Microsoft.EntityFrameworkCore' is referenced in your project
+    options.UseNpgsql(url)); // Ensure 'Microsoft.EntityFrameworkCore' is referenced in your project
 
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddControllers();

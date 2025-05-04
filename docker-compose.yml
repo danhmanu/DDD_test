@@ -1,0 +1,32 @@
+﻿version: '3.8'  # Phiên bản cú pháp của Docker Compose
+
+services:
+  emrservice:  # Dịch vụ chạy ứng dụng EMR (ASP.NET Core)
+    build:
+      context: ./Src/EMRService/EMRService  # Thư mục chứa Dockerfile và source code
+      dockerfile: Dockerfile                # Tên file Dockerfile (có thể bỏ nếu mặc định)
+    ports:
+      - "5000:5000"  # Map cổng máy thật (host) -> cổng trong container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development            # Môi trường ASP.NET
+      - ASPNETCORE_URLS=http://+:5000                 # Lắng nghe mọi IP trên cổng 5000
+      - ConnectionStrings__EMRDatabase=Host=postgres;Port=5432;Database=emrdb;Username=postgres;Password=postgres  
+        # Chuỗi kết nối PostgreSQL truyền qua biến môi trường (dùng __ thay cho dấu :)
+    depends_on:
+      - postgres  # Đảm bảo dịch vụ PostgreSQL khởi động trước EMRService
+
+  postgres:  # Dịch vụ cơ sở dữ liệu PostgreSQL
+    image: postgres:15  # Sử dụng image PostgreSQL phiên bản 15
+    container_name: emr_postgres  # Tên container (giúp dễ quản lý)
+    restart: always  # Tự khởi động lại khi bị crash hoặc sau reboot
+    environment:
+      POSTGRES_DB: emrdb          # Tên database khởi tạo
+      POSTGRES_USER: postgres     # Tài khoản đăng nhập
+      POSTGRES_PASSWORD: postgres # Mật khẩu đăng nhập
+    ports:
+      - "5432:5432"  # Map cổng PostgreSQL ra ngoài
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Lưu trữ dữ liệu DB ra volume bên ngoài
+
+volumes:
+  pgdata:  # Volume dùng để lưu trữ dữ liệu PostgreSQL (tránh mất dữ liệu khi container xoá)
